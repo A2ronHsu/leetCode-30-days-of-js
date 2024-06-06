@@ -18,19 +18,14 @@ factorial accepts a single integer n and returns 1 if n <= 1 or factorial(n - 1)
  */
 function memoize(fn) {
 
-    let memo=[];
-    let result=[];
+    let memo={};
 
     return function(...args) {
-        let cur = `${args}`;
 
-        if (memo.includes(cur)){
-            return result[memo.indexOf(cur)]
+        if (!memo[args]){
+            return memo[args] = fn( ...args)
         }else{
-            memo.push(cur);
-            result.push(fn(...args))
-
-            return result[memo.indexOf(cur)]
+            return memo[args]
         }
     }
 }
@@ -56,4 +51,5 @@ function memoize(fn) {
  console.log(memoizedFn(2, 3)) // 5
  console.log(memoizedFn(2, 2)) // 5
  console.log(memoizedFn(2, 1)) // 5
+ console.log(memoizedFn(2, 0))
  console.log(callCount) // 1 
