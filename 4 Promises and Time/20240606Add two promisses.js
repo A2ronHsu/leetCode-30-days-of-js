@@ -10,10 +10,9 @@
  * @return {Promise}
  */
 var addTwoPromises = async function(promise1, promise2) {
-    return new Promise(resolve=>{
-        resolve(promise1.then(a=>
-            promise2.then(b=> a + b)))
-    })
+    return promise1
+        .then( x => promise2
+            .then( y => x + y))
 };
 
 /**

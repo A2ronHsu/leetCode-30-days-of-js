@@ -8,9 +8,7 @@
  * @return {Promise}
  */
 async function sleep(millis) {
-    return new Promise(resolve => {
-        setTimeout(()=> resolve(millis), millis)
-    })
+    return new Promise(res => setTimeout(()=>{},millis))
 }
 
 /** 
