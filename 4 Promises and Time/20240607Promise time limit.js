@@ -15,16 +15,22 @@ If the execution of the fn exceeds the time limit, the time limited function sho
  * @return {Function}
  */
 var timeLimit = function(fn, t) {
+    
     return async function(...args) {
-        let condition = false;
-        
-        return new Promise((res, rej)=>{
-            setTimeout(rej('Time Limit Exceeded'),t)
-            fn(...args).then((result)=>res(result))
-            
-        })
+       return new Promise((res, rej)=>{
+          let timer = setTimeout(()=>rej("Time Limit Exceeded"),t)
+ 
+          fn(...args)
+          .then(value => { 
+             clearTimeout(timer);
+             res(value)
+          }).catch((value)=>{
+             clearTimeout(timer);
+             rej(value)
+          })
+       })
     }
-}
+};
 
 
 let fn = (t) => new Promise(res => setTimeout(res("finish"), t))
