@@ -17,23 +17,24 @@ If the execution of the fn exceeds the time limit, the time limited function sho
 var timeLimit = function(fn, t) {
     
     return async function(...args) {
-       return new Promise((res, rej)=>{
-          let timer = setTimeout(()=>rej("Time Limit Exceeded"),t)
- 
-          fn(...args)
-          .then(value => { 
-             clearTimeout(timer);
-             res(value)
-          }).catch((value)=>{
-             clearTimeout(timer);
-             rej(value)
-          })
-       })
-    }
-};
+        return new Promise((res,rej)=>{
+            let timer = setTimeout(()=>rej("Time Limit Exceeded"),t)
+            fn(...args).then((result)=>{
+                clearTimeout(timer)
+                res(result)
+            }).catch(error=>{
+                clearTimeout(timer)
+                rej(error)
+            })
+            
+        })
+}
+}
 
-
-let fn = (t) => new Promise(res => setTimeout(res("finish"), t))
-let t = 2000;
+let fn = (t) => new Promise(res => setTimeout(()=>res(console.log(`finish in ${t}ms`)), t));
+let t = 500;
 const limited = timeLimit(fn, t);
-limited(3000).then(console.log).catch(console.log) // "Time Limit Exceeded" at t=100ms
+limited(1000).then(console.log).catch(console.log) // "Time Limit Exceeded" at t=100ms
+
+
+
