@@ -19,10 +19,9 @@ factorial accepts a single integer n and returns 1 if n <= 1 or factorial(n - 1)
 function memoize(fn) {
 
     let memo={};
-
     return function(...args) {
 
-        if (!memo[args]){
+        if (memo[args] == null){
             return memo[args] = fn( ...args)
         }else{
             return memo[args]
@@ -47,9 +46,9 @@ function memoize(fn) {
   callCount += 1;
    return a + b;
  })
- memoizedFn(2, 3) // 5
  console.log(memoizedFn(2, 3)) // 5
- console.log(memoizedFn(2, 2)) // 5
- console.log(memoizedFn(2, 1)) // 5
- console.log(memoizedFn(2, 0))
+ console.log(memoizedFn(0, 0)) // 5
+ console.log(memoizedFn(0, 0)) // 5
+ console.log(memoizedFn(0, 0)) // 5
+ console.log(memoizedFn(0, 0))
  console.log(callCount) // 1 
