@@ -10,31 +10,21 @@ The first 2 function calls would be cancelled, and the 3rd function call would b
 
 If instead t = 35ms, The 1st call would be cancelled, the 2nd would be executed at 95ms, and the 3rd would be executed at 135ms.
  */
-
 /**
  * @param {Function} fn
  * @param {number} t milliseconds
  * @return {Function}
  */
 var debounce = function(fn, t) {
-   let timerObj={};
+   let timer
    return function(...args) {
-
-      if (timerObj[fn]){
-         clearTimeout(timerObj[fn])
-         delete timerObj[fn];
-      }else{
-         
-         timerObj[fn] = setTimeout(()=>{
-            fn(...args);
-         },t);
-
-      }
+      
    }
 };
 
-
-const log = debounce(()=>50, 1000);
-log('1Hello'); // cancelled
-log('2Hello'); // cancelled
-log('3Hello'); // Logged at t=100ms
+/**
+* const log = debounce(console.log, 100);
+* log('Hello'); // cancelled
+* log('Hello'); // cancelled
+* log('Hello'); // Logged at t=100ms
+*/
