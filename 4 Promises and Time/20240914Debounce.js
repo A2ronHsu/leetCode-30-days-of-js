@@ -15,16 +15,22 @@ If instead t = 35ms, The 1st call would be cancelled, the 2nd would be executed 
  * @param {number} t milliseconds
  * @return {Function}
  */
+
 var debounce = function(fn, t) {
-   let timer
+   let timer;
    return function(...args) {
-      
+      clearTimeout(timer);
+      timer = setTimeout( () =>{
+         fn(...args)
+      }, t);
    }
+
 };
 
-/**
-* const log = debounce(console.log, 100);
-* log('Hello'); // cancelled
-* log('Hello'); // cancelled
-* log('Hello'); // Logged at t=100ms
-*/
+const log = debounce(console.log, 1000);
+log('Hello'); // cancelled
+log('Hello'); // cancelled
+log('Hello'); 
+log('Hello'); 
+log('Hello'); // Logged at t=100ms
+
